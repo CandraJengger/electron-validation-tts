@@ -96,12 +96,23 @@ export default function Dashboard() {
   const [currentCount, setCurrentCount] = useState('');
   const [playing, setPlaying] = useState(false);
   const [newData, setNewData] = useState([]);
+  const [note, setNote] = useState('');
 
   let waveform = useRef();
   const containerWaveRef = useRef();
 
   const handleOpenDialogInput = () => {
     setOpenDialogInput(true);
+  };
+
+  const handleWriteNote = (value) => {
+    setNote(value);
+  };
+
+  const handleSaveNote = () => {
+    setData([...data, (data[position].notewav = note)]);
+    setOpenDialogInput(false);
+    setNote('');
   };
 
   const handleCloseDialogInput = () => {
@@ -206,6 +217,13 @@ export default function Dashboard() {
     return setPosition(position - 1);
   };
 
+  const handlePlay = () => {
+    if (waveform.current !== undefined) {
+      setPlaying(!playing);
+      waveform.current.playPause();
+    }
+  };
+
   const handleChangePosition = (value, key = '') => {
     let count;
     if (key === 'Enter') {
@@ -227,13 +245,6 @@ export default function Dashboard() {
       }
     }
     setCurrentCount(value);
-  };
-
-  const handlePlay = () => {
-    if (waveform.current !== undefined) {
-      setPlaying(!playing);
-      waveform.current.playPause();
-    }
   };
 
   const handlePushNewData = (newItem) => {
@@ -403,6 +414,9 @@ export default function Dashboard() {
         nameWav={data.length > 1 ? data[position].namewav : ''}
         open={openDialogInput}
         handleCloseDialog={handleCloseDialogInput}
+        value={note}
+        handleOnChange={handleWriteNote}
+        handleOnSave={data.length > 1 ? handleSaveNote : handleCloseDialogInput}
       />
       <DialogConfirApply
         title="Confirmation"

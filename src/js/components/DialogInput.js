@@ -12,6 +12,9 @@ const DialogInput = ({
   nameWav = 'Name Wav',
   open,
   handleCloseDialog,
+  value = '',
+  handleOnChange,
+  handleOnSave,
 }) => {
   return (
     <Dialog
@@ -25,6 +28,8 @@ const DialogInput = ({
         <TextField
           autoFocus
           multiline
+          value={value}
+          onChange={(e) => handleOnChange(e.target.value)}
           rows={3}
           margin="dense"
           id="note"
@@ -36,7 +41,7 @@ const DialogInput = ({
         <Button onClick={handleCloseDialog} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleCloseDialog} color="primary">
+        <Button onClick={handleOnSave} color="primary">
           Save
         </Button>
       </DialogActions>
