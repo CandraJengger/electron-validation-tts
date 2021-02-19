@@ -96,6 +96,7 @@ export default function Dashboard() {
   const [currentCount, setCurrentCount] = useState('');
   const [playing, setPlaying] = useState(false);
   const [newData, setNewData] = useState([]);
+  const [dataContainsNotes, setDataContainsNotes] = useState([]);
   const [note, setNote] = useState('');
 
   let waveform = useRef();
@@ -167,6 +168,12 @@ export default function Dashboard() {
       `Iki data anyar ${newData.forEach((item) => console.log(item))}`,
       newData.length
     );
+    const listNote = newData.filter(
+      (item) => item.notewav !== '' && item.hasOwnProperty('notewav')
+    );
+    console.log(listNote);
+    setDataContainsNotes(listNote);
+
     if (currentCount === '0') {
       return setCurrentCount('0');
     }
@@ -263,7 +270,12 @@ export default function Dashboard() {
         handleSelectFile={handleSelectFile}
       />
       {/* Drawer */}
-      <SideBar open={open} handleDrawerClose={handleDrawerClose} />
+      <SideBar
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+        count={dataContainsNotes.length > 0 ? dataContainsNotes.length : 0}
+        note={dataContainsNotes.length > 0 ? dataContainsNotes : []}
+      />
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

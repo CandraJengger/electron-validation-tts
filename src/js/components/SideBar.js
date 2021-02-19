@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideBar = ({ open, handleDrawerClose }) => {
+const SideBar = ({ open, handleDrawerClose, count, note }) => {
   const classes = useStyles();
 
   return (
@@ -60,7 +60,7 @@ const SideBar = ({ open, handleDrawerClose }) => {
       </div>
       <Divider />
       <List>
-        <ListItems count={4} />
+        <ListItems count={count} note={note} />
       </List>
     </Drawer>
   );

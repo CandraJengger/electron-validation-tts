@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const listItems = ({ count }) => {
+const listItems = ({ count, note }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
@@ -40,7 +40,7 @@ const listItems = ({ count }) => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListFixed count={count} />
+          <ListFixed items={note} />
         </List>
       </Collapse>
     </>

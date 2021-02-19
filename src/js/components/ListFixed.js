@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function renderRow(props) {
-  const { index, style } = props;
+  const { index, style, data } = props;
 
   return (
     <ListItem button style={(style, { height: 30 })} key={index}>
@@ -24,7 +24,7 @@ function renderRow(props) {
         primary={
           <React.Fragment>
             <Typography component="span" variant="caption" color="secondary">
-              {`Item ${index + 1}`}
+              {`${data[index].filewav} - ${data[index].notewav}`}
             </Typography>
           </React.Fragment>
         }
@@ -38,12 +38,19 @@ renderRow.propTypes = {
   style: PropTypes.object.isRequired,
 };
 
-const ListFixed = ({ count }) => {
+// menampilkan data items
+const ListFixed = ({ items }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <FixedSizeList height={400} width={230} itemSize={46} itemCount={count}>
+      <FixedSizeList
+        height={400}
+        width={230}
+        itemSize={46}
+        itemCount={items.length}
+        itemData={items}
+      >
         {renderRow}
       </FixedSizeList>
     </div>
