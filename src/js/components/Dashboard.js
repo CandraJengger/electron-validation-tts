@@ -463,7 +463,7 @@ export default function Dashboard() {
         open={openDialogSave}
         handleOnClose={handleCloseDialogSave}
         handleOnOk={handleCloseDialogSave}
-        text="Apakah anda  ?"
+        text="Apakah anda proses validasi sudah selesai ?"
       />
     </div>
   );
