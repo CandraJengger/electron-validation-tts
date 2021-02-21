@@ -142,6 +142,11 @@ export default function Dashboard() {
     setOpenDialogSave(false);
   };
 
+  const handleSaveExportToXlsx = () => {
+    electron.filesApi.exportToXlsx(newData, filePath);
+    setOpenDialogSave(false);
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -462,7 +467,7 @@ export default function Dashboard() {
         title="Confirmation"
         open={openDialogSave}
         handleOnClose={handleCloseDialogSave}
-        handleOnOk={handleCloseDialogSave}
+        handleOnOk={handleSaveExportToXlsx}
         text="Apakah anda proses validasi sudah selesai ?"
       />
     </div>

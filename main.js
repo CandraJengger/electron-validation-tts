@@ -72,4 +72,19 @@ ipcMain.on('select-file', async (e) => {
   });
 });
 
+ipcMain.on('export-file', (_, { newData, path }) => {
+  const dir = path.substring(0, path.lastIndexOf('/'));
+  const fileContainFormat = path.replace(/^.*[\\\/]/, '');
+  const file = fileContainFormat.substring(
+    0,
+    fileContainFormat.lastIndexOf('.')
+  );
+
+  const ws = xlsx.utils.json_to_sheet(newData);
+  const wb = xlsx.utils.book_new();
+  xlsx.utils.book_append_sheet(wb, ws, 'Sheet 1');
+
+  xlsx.writeFile(wb, `${dir}/${file}-VALID.xlsx`);
+});
+
 app.whenReady().then(createWindow);

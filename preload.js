@@ -18,5 +18,12 @@ contextBridge.exposeInMainWorld('electron', {
         });
       });
     },
+    exportToXlsx(newData, path) {
+      const data = {
+        newData,
+        path,
+      };
+      ipc.send('export-file', data);
+    },
   },
 });
