@@ -38,7 +38,6 @@ renderRow.propTypes = {
   style: PropTypes.object.isRequired,
 };
 
-// menampilkan data items
 const ListFixed = ({ items }) => {
   const classes = useStyles();
 
