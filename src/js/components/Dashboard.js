@@ -164,8 +164,13 @@ export default function Dashboard() {
     setFilePath(fullPath);
     setData(dataPreload);
     setFileName(file);
+
+    // reset state
     setPosition(0);
     setPlaying(false);
+    setNewData([]);
+    setDataContainsNotes([]);
+    setNote('');
   };
 
   useEffect(() => {
