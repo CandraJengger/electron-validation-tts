@@ -144,6 +144,9 @@ export default function Dashboard() {
 
   const handleSaveExportToXlsx = () => {
     electron.filesApi.exportToXlsx(newData, filePath);
+
+    // delete store
+    electron.storeApi.deleteStore(filePath);
     setOpenDialogSave(false);
   };
 
@@ -161,15 +164,23 @@ export default function Dashboard() {
     const dataPreload = await result.data;
     const file = await fullPath.replace(/^.*[\\\/]/, '');
 
+    const storeIsExist = await electron.storeApi.getStore(fullPath);
+
     setFilePath(fullPath);
     setData(dataPreload);
     setFileName(file);
 
     // reset state
+    if ((await storeIsExist) !== undefined) {
+      // dari store
+      console.log(storeIsExist);
+      setNewData([...storeIsExist]);
+    } else {
+      setNewData([]);
+    }
+    setDataContainsNotes([]);
     setPosition(0);
     setPlaying(false);
-    setNewData([]);
-    setDataContainsNotes([]);
     setNote('');
   };
 
@@ -269,13 +280,15 @@ export default function Dashboard() {
     return foundIt;
   };
 
-  const handlePushNewData = (newItem) => {
+  const handlePushNewData = async (newItem) => {
     const indexInNewData = findIndexInNewData(newData, newItem);
+
     if (indexInNewData !== -1) {
       newData[indexInNewData] = newItem;
     } else {
       setNewData([...newData, newItem]);
     }
+    electron.storeApi.setStore(filePath, newData);
     setOpenDialogApply(false);
   };
 

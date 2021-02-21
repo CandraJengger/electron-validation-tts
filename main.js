@@ -1,5 +1,6 @@
 const path = require('path');
 const xlsx = require('xlsx');
+const Store = require('electron-store');
 const {
   app,
   BrowserWindow,
@@ -8,6 +9,7 @@ const {
   dialog,
 } = require('electron');
 
+const store = new Store();
 const isDev = !app.isPackaged;
 
 function createWindow() {
@@ -85,6 +87,18 @@ ipcMain.on('export-file', (_, { newData, path }) => {
   xlsx.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
   xlsx.writeFile(wb, `${dir}/${file}-VALID.xlsx`);
+});
+
+ipcMain.on('set-store', (_, { path, data }) => {
+  store.set(path, data);
+});
+
+ipcMain.on('get-store', (e, key) => {
+  e.sender.send('get-store-reply', store.get(key));
+});
+
+ipcMain.on('delete-store', (e, key) => {
+  store.delete(key);
 });
 
 app.whenReady().then(createWindow);
