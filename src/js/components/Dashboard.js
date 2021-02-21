@@ -254,8 +254,18 @@ export default function Dashboard() {
     setCurrentCount(value);
   };
 
+  const findIndexInNewData = (data = [], item) => {
+    const foundIt = data.findIndex((data) => data.filewav === item.filewav);
+    return foundIt;
+  };
+
   const handlePushNewData = (newItem) => {
-    setNewData([...newData, newItem]);
+    const indexInNewData = findIndexInNewData(newData, newItem);
+    if (indexInNewData !== -1) {
+      newData[indexInNewData] = newItem;
+    } else {
+      setNewData([...newData, newItem]);
+    }
     setOpenDialogApply(false);
   };
 
