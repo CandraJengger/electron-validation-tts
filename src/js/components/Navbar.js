@@ -53,7 +53,7 @@ const Navbar = ({ open, handleDrawerOpen, handleSelectFile }) => {
     <AppBar
       position="absolute"
       className={clsx(classes.appBar, open && classes.appBarShift)}
-      color="secondary"
+      color="primary"
     >
       <Toolbar className={classes.toolbar}>
         <IconButton

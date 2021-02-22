@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItems from './ListItems';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import IconButton from '@material-ui/core/IconButton';
 
 // Icon
@@ -29,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
   },
+  switch: {
+    paddingLeft: theme.spacing(3),
+  },
   drawerPaperClose: {
     overflowX: 'hidden',
     transition: theme.transitions.create('width', {
@@ -42,8 +48,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideBar = ({ open, handleDrawerClose, count, note }) => {
+const SideBar = ({ open, handleDrawerClose, count, note, toggleTheme }) => {
+  const [isLight, setIsLight] = useState(true);
   const classes = useStyles();
+
+  const handleChangeToggle = (event) => {
+    setIsLight(event.target.checked);
+    toggleTheme();
+  };
 
   return (
     <Drawer
@@ -61,6 +73,18 @@ const SideBar = ({ open, handleDrawerClose, count, note }) => {
       <Divider />
       <List>
         <ListItems count={count} note={note} />
+        <FormGroup className={classes.switch}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isLight}
+                onChange={handleChangeToggle}
+                aria-label="theme switch"
+              />
+            }
+            label={isLight ? 'Light Mode' : 'Dark Mode'}
+          />
+        </FormGroup>
       </List>
     </Drawer>
   );

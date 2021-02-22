@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard({ onToggleTheme }) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [openDialogInput, setOpenDialogInput] = useState(false);
@@ -211,8 +211,8 @@ export default function Dashboard() {
       }
       waveform.current = WaveSurfer.create({
         waveColor: '#D9DCFF',
-        progressColor: '#4353FF',
-        cursorColor: '#4353FF',
+        progressColor: '#f48fb1',
+        cursorColor: '#8c4f64',
         cursorWidth: 1,
         container: containerWaveRef.current,
         backend: 'WebAudio',
@@ -308,6 +308,7 @@ export default function Dashboard() {
         handleDrawerClose={handleDrawerClose}
         count={dataContainsNotes.length > 0 ? dataContainsNotes.length : 0}
         note={dataContainsNotes.length > 0 ? dataContainsNotes : []}
+        toggleTheme={onToggleTheme}
       />
 
       <main className={classes.content}>
@@ -377,7 +378,7 @@ export default function Dashboard() {
                     multiline
                     rows={6}
                     placeholder="Some text"
-                    color="secondary"
+                    color="primary"
                     variant="filled"
                     value={data.length > 1 ? data[position].transcript : ''}
                   />
@@ -443,7 +444,7 @@ export default function Dashboard() {
                   <Button
                     className={classes.fixedWidthButton}
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     onClick={handleOpenDialogSave}
                   >
                     Save
