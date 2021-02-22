@@ -52,7 +52,7 @@ const DetailFile = ({
         <Gap height={10} />
         <Grid item xs={12} md={12} lg={12}>
           <Typography component="h5" variant="subtitle2">
-            File xlsx
+            File csv
           </Typography>
           <Typography component="p" variant="caption" noWrap>
             {fileName ? fileName : '-'}

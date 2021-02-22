@@ -112,6 +112,7 @@ export default function Dashboard({ onToggleTheme }) {
 
   const handleSaveNote = () => {
     setData([...data, (data[position].notewav = note)]);
+    console.log(data[position].notewav);
     setOpenDialogInput(false);
     setNote('');
   };
@@ -171,13 +172,13 @@ export default function Dashboard({ onToggleTheme }) {
     setFileName(file);
 
     // reset state
-    if ((await storeIsExist) !== undefined) {
-      // dari store
-      console.log(storeIsExist);
-      setNewData([...storeIsExist]);
-    } else {
-      setNewData([]);
-    }
+    // if ((await storeIsExist) !== undefined) {
+    // dari store
+    //   console.log(storeIsExist);
+    //   setNewData([...storeIsExist]);
+    // } else {
+    setNewData([]);
+    // }
     setDataContainsNotes([]);
     setPosition(0);
     setPlaying(false);
@@ -276,7 +277,7 @@ export default function Dashboard({ onToggleTheme }) {
   };
 
   const findIndexInNewData = (data = [], item) => {
-    const foundIt = data.findIndex((data) => data.filewav === item.filewav);
+    const foundIt = data.findIndex((data) => data.namewav === item.namewav);
     return foundIt;
   };
 
@@ -288,7 +289,7 @@ export default function Dashboard({ onToggleTheme }) {
     } else {
       setNewData([...newData, newItem]);
     }
-    electron.storeApi.setStore(filePath, newData);
+    // electron.storeApi.setStore(filePath, newData);
     setOpenDialogApply(false);
   };
 

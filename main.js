@@ -1,5 +1,6 @@
 const path = require('path');
-const xlsx = require('xlsx');
+const csv = require('csv-parser');
+const fs = require('fs');
 const Store = require('electron-store');
 const {
   app,
@@ -15,7 +16,7 @@ const isDev = !app.isPackaged;
 function createWindow() {
   const win = new BrowserWindow({
     width: 1100,
-    minWidth: 700,
+    minWidth: 800,
     height: 700,
     minHeight: 700,
     backgroundColor: 'white',
@@ -46,15 +47,15 @@ ipcMain.on('notify', (_, message) => {
 });
 
 ipcMain.on('select-file', async (e) => {
-  const readExcel = (file) => {
+  const readCsv = (file) => {
+    const results = [];
     return new Promise((resolve, reject) => {
-      const wb = xlsx.readFile(file);
-
-      const ws = wb.Sheets['Sheet1'];
-
-      const data = xlsx.utils.sheet_to_json(ws);
-
-      resolve(data);
+      fs.createReadStream(file)
+        .pipe(csv())
+        .on('data', (data) => results.push(data))
+        .on('end', () => {
+          resolve(results);
+        });
     });
   };
 
@@ -66,7 +67,7 @@ ipcMain.on('select-file', async (e) => {
     }
   });
 
-  readExcel(result.filePaths[0]).then((data) => {
+  readCsv(result.filePaths[0]).then((data) => {
     e.sender.send('select-file-reply', {
       path: result.filePaths[0],
       data,
