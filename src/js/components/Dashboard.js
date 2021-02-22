@@ -20,7 +20,6 @@ import WaveformContainer from './WaveformContainer';
 import Wave from './Wave';
 import DialogInput from './DialogInput';
 import DialogConfirApply from './DialogConfir';
-import DialogConfirDelete from './DialogConfir';
 import DialogConfirSave from './DialogConfir';
 
 // icons
@@ -86,7 +85,6 @@ export default function Dashboard({ onToggleTheme }) {
   const [openDialogInput, setOpenDialogInput] = useState(false);
   const [openDialogApply, setOpenDialogApply] = useState(false);
   const [openDialogSave, setOpenDialogSave] = useState(false);
-  const [openDialogDelete, setOpenDialogDelete] = useState(false);
 
   // content
   const [filePath, setFilePath] = useState('');
@@ -95,7 +93,6 @@ export default function Dashboard({ onToggleTheme }) {
   const [position, setPosition] = useState(0);
   const [currentCount, setCurrentCount] = useState('');
   const [playing, setPlaying] = useState(false);
-  const [newData, setNewData] = useState([]);
   const [dataContainsNotes, setDataContainsNotes] = useState([]);
   const [note, setNote] = useState('');
 
@@ -128,13 +125,7 @@ export default function Dashboard({ onToggleTheme }) {
   const handleCloseDialogApply = () => {
     setOpenDialogApply(false);
   };
-  const handleOpenDialogDelete = () => {
-    setOpenDialogDelete(true);
-  };
 
-  const handleCloseDialogDelete = () => {
-    setOpenDialogDelete(false);
-  };
   const handleOpenDialogSave = () => {
     setOpenDialogSave(true);
   };
@@ -177,7 +168,6 @@ export default function Dashboard({ onToggleTheme }) {
     //   console.log(storeIsExist);
     //   setNewData([...storeIsExist]);
     // } else {
-    setNewData([]);
     // }
     setDataContainsNotes([]);
     setPosition(0);
@@ -186,14 +176,11 @@ export default function Dashboard({ onToggleTheme }) {
   };
 
   useEffect(() => {
-    console.log(
-      `Iki data anyar ${newData.forEach((item) => console.log(item))}`,
-      newData.length
-    );
-    const listNote = newData.filter(
+    const listNote = data.filter(
       (item) => item.notewav !== '' && item.hasOwnProperty('notewav')
     );
     console.log(listNote);
+    console.log(data);
     setDataContainsNotes(listNote);
 
     if (currentCount === '0') {
@@ -225,7 +212,7 @@ export default function Dashboard({ onToggleTheme }) {
       });
       waveform.current.load(audioPath);
     }
-  }, [position, data, newData]);
+  }, [position, data]);
 
   const handleNext = () => {
     if (currentCount === '0') {
@@ -282,12 +269,10 @@ export default function Dashboard({ onToggleTheme }) {
   };
 
   const handlePushNewData = async (newItem) => {
-    const indexInNewData = findIndexInNewData(newData, newItem);
+    const indexInNewData = findIndexInNewData(data, newItem);
 
     if (indexInNewData !== -1) {
-      newData[indexInNewData] = newItem;
-    } else {
-      setNewData([...newData, newItem]);
+      data[indexInNewData] = newItem;
     }
     // electron.storeApi.setStore(filePath, newData);
     setOpenDialogApply(false);
@@ -391,7 +376,7 @@ export default function Dashboard({ onToggleTheme }) {
                   xs={6}
                   sm={3}
                   md={3}
-                  lg={2}
+                  lg={3}
                   className={classes.paddingTop}
                 >
                   <Button
@@ -407,7 +392,7 @@ export default function Dashboard({ onToggleTheme }) {
                   xs={6}
                   sm={3}
                   md={3}
-                  lg={2}
+                  lg={3}
                   className={classes.paddingTop}
                 >
                   <Button
@@ -418,28 +403,13 @@ export default function Dashboard({ onToggleTheme }) {
                     Apply
                   </Button>
                 </Grid>
+
                 <Grid
                   item
                   xs={6}
                   sm={3}
                   md={3}
-                  lg={2}
-                  className={classes.paddingTop}
-                >
-                  <Button
-                    className={classes.fixedWidthButton}
-                    variant="contained"
-                    onClick={handleOpenDialogDelete}
-                  >
-                    Delete
-                  </Button>
-                </Grid>
-                <Grid
-                  item
-                  xs={6}
-                  sm={3}
-                  md={3}
-                  lg={2}
+                  lg={3}
                   className={classes.paddingTop}
                 >
                   <Button
@@ -476,13 +446,7 @@ export default function Dashboard({ onToggleTheme }) {
         }
         text="Apakah anda ingin menyimpan form validasi agar dapat dilanjutkan lain waktu ?"
       />
-      <DialogConfirDelete
-        title="Confirmation"
-        open={openDialogDelete}
-        handleOnClose={handleCloseDialogDelete}
-        handleOnOk={handleCloseDialogDelete}
-        text="Apakah anda yakin menghapus data ini ?"
-      />
+
       <DialogConfirSave
         title="Confirmation"
         open={openDialogSave}
