@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItems from './ListItems';
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideBar = ({ open, handleDrawerClose, count, note, toggleTheme }) => {
+  const keyStore = 'theme';
   const [isLight, setIsLight] = useState(true);
   const classes = useStyles();
 
@@ -56,6 +57,13 @@ const SideBar = ({ open, handleDrawerClose, count, note, toggleTheme }) => {
     setIsLight(event.target.checked);
     toggleTheme();
   };
+
+  useEffect(async () => {
+    (await electron.storeApi.getStore(keyStore)) &&
+    (await electron.storeApi.getStore(keyStore)) === 'light'
+      ? setIsLight(true)
+      : setIsLight(false);
+  }, []);
 
   return (
     <Drawer

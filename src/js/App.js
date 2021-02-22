@@ -3,6 +3,7 @@ import Dashboard from './components/Dashboard';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const App = () => {
+  const keyStore = 'theme';
   const [theme, setTheme] = useState({
     palette: {
       type: 'light',
@@ -21,8 +22,21 @@ const App = () => {
     },
   });
 
+  useEffect(async () => {
+    setTheme({
+      ...theme,
+      palette: {
+        ...theme.palette,
+        type: (await electron.storeApi.getStore(keyStore))
+          ? await electron.storeApi.getStore(keyStore)
+          : 'light',
+      },
+    });
+  }, []);
+
   const toggleDarkTheme = () => {
     let newPaletteType = theme.palette.type === 'light' ? 'dark' : 'light';
+    electron.storeApi.setStore(keyStore, newPaletteType);
     setTheme({
       ...theme,
       palette: {
