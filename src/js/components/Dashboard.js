@@ -100,7 +100,14 @@ export default function Dashboard({ onToggleTheme }) {
   const containerWaveRef = useRef();
 
   const handleOpenDialogInput = () => {
+    data.length > 1 &&
+      data[position].hasOwnProperty('notewav') &&
+      setNote(data[position].notewav);
     setOpenDialogInput(true);
+  };
+
+  const handleCloseDialogInput = () => {
+    setOpenDialogInput(false);
   };
 
   const handleWriteNote = (value) => {
@@ -112,10 +119,6 @@ export default function Dashboard({ onToggleTheme }) {
     console.log(data[position].notewav);
     setOpenDialogInput(false);
     setNote('');
-  };
-
-  const handleCloseDialogInput = () => {
-    setOpenDialogInput(false);
   };
 
   const handleOpenDialogApply = () => {
@@ -179,8 +182,6 @@ export default function Dashboard({ onToggleTheme }) {
     const listNote = data.filter(
       (item) => item.notewav !== '' && item.hasOwnProperty('notewav')
     );
-    console.log(listNote);
-    console.log(data);
     setDataContainsNotes(listNote);
 
     if (currentCount === '0') {

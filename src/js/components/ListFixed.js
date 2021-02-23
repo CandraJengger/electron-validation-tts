@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     height: 400,
-    maxWidth: 200,
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -19,17 +19,43 @@ function renderRow(props) {
   const { index, style, data } = props;
 
   return (
-    <ListItem button style={(style, { height: 30 })} key={index}>
-      <ListItemText
-        primary={
-          <React.Fragment>
-            <Typography component="span" variant="caption" color="secondary">
-              {`${data[index].filewav} - ${data[index].notewav}`}
-            </Typography>
-          </React.Fragment>
+    <Tooltip
+      title={
+        <Typography component="span" variant="body2">
+          {`${data[index].notewav}`}
+        </Typography>
+      }
+      style={{ maxWidth: 500 }}
+      arrow
+      placement="right"
+      TransitionComponent={Zoom}
+    >
+      <ListItem
+        button
+        style={
+          (style,
+          {
+            height: 30,
+          })
         }
-      />
-    </ListItem>
+        key={index}
+      >
+        <Typography
+          component="span"
+          variant="caption"
+          noWrap
+          style={{
+            width: 239,
+          }}
+          color="secondary"
+        >
+          {`${data[index].namewav.substring(
+            8,
+            data[index].namewav.lastIndexOf('v')
+          )} - ${data[index].notewav}`}
+        </Typography>
+      </ListItem>
+    </Tooltip>
   );
 }
 
