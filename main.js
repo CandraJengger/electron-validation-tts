@@ -48,12 +48,27 @@ ipcMain.on('notify', (_, message) => {
 
 ipcMain.on('select-file', async (e) => {
   const readCsv = (file) => {
-    const results = [];
+    const parseCsv = [];
+    let results = '';
     return new Promise((resolve, reject) => {
       fs.createReadStream(file)
-        .pipe(csv())
-        .on('data', (data) => results.push(data))
+        .pipe(
+          csv({
+            separator: '\n',
+            mapHeaders: () => 0,
+          })
+        )
+        .on('data', (row) => {
+          parseCsv.push(row[0]);
+          results = parseCsv.map((item) => ({
+            nama_audio: item.substring(0, 12),
+            teks_transcript: item
+              .substring(13, item.lastIndexOf('.') + 1)
+              .replace('"', ''),
+          }));
+        })
         .on('end', () => {
+          console.log(results);
           resolve(results);
         });
     });

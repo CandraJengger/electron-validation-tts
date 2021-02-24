@@ -49,10 +49,7 @@ function renderRow(props) {
           }}
           color="secondary"
         >
-          {`${data[index].namewav.substring(
-            8,
-            data[index].namewav.lastIndexOf('v')
-          )} - ${data[index].notewav}`}
+          {`${data[index].nama_audio} - ${data[index].notewav}`}
         </Typography>
       </ListItem>
     </Tooltip>

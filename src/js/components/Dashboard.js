@@ -115,8 +115,8 @@ export default function Dashboard({ onToggleTheme }) {
   };
 
   const handleSaveNote = () => {
-    setData([...data, (data[position].notewav = note)]);
-    console.log(data[position].notewav);
+    data[position].notewav = note;
+    setData([...data]);
     setOpenDialogInput(false);
     setNote('');
   };
@@ -161,9 +161,9 @@ export default function Dashboard({ onToggleTheme }) {
 
     const storeIsExist = await electron.storeApi.getStore(fullPath);
 
+    setFileName(file);
     setFilePath(fullPath);
     setData(dataPreload);
-    setFileName(file);
 
     // reset state
     // if ((await storeIsExist) !== undefined) {
@@ -192,7 +192,8 @@ export default function Dashboard({ onToggleTheme }) {
 
     if (data.length > 0) {
       const dir = filePath.substring(0, filePath.lastIndexOf('/'));
-      const audioPath = `${dir}/audio/${data[position].namewav}`;
+      const audioDir = fileName.substring(0, fileName.lastIndexOf('.'));
+      const audioPath = `${dir}/${audioDir}/${data[position].nama_audio}.wav`;
       console.log(audioPath);
 
       if (waveform.current !== undefined) {
@@ -265,7 +266,9 @@ export default function Dashboard({ onToggleTheme }) {
   };
 
   const findIndexInNewData = (data = [], item) => {
-    const foundIt = data.findIndex((data) => data.namewav === item.namewav);
+    const foundIt = data.findIndex(
+      (data) => data.nama_audio === item.nama_audio
+    );
     return foundIt;
   };
 
@@ -310,7 +313,7 @@ export default function Dashboard({ onToggleTheme }) {
                     fileName={fileName}
                     count={data && data.length}
                     currentCount={currentCount}
-                    nameWav={data.length > 1 && data[position].namewav}
+                    nameWav={data.length > 1 && data[position].nama_audio}
                     handleChangePosition={handleChangePosition}
                   />
                 </Paper>
@@ -367,7 +370,9 @@ export default function Dashboard({ onToggleTheme }) {
                     placeholder="Some text"
                     color="primary"
                     variant="filled"
-                    value={data.length > 1 ? data[position].transcript : ''}
+                    value={
+                      data.length > 1 ? data[position].teks_transcript : ''
+                    }
                   />
                 </Paper>
               </Grid>
@@ -429,7 +434,7 @@ export default function Dashboard({ onToggleTheme }) {
       </main>
       <DialogInput
         title="Note"
-        nameWav={data.length > 1 ? data[position].namewav : ''}
+        nameWav={data.length > 1 ? data[position].nama_audio : ''}
         open={openDialogInput}
         handleCloseDialog={handleCloseDialogInput}
         value={note}
