@@ -62,12 +62,15 @@ ipcMain.on('select-file', async (e) => {
         )
         .on('data', (row) => {
           parseCsv.push(row[0]);
-          results = parseCsv.map((item) => ({
-            nama_audio: item.substring(0, 12),
-            teks_transcript: item
-              .substring(13, item.lastIndexOf('.') + 1)
-              .replace('"', ''),
-          }));
+          results = parseCsv.map((item) => {
+            return {
+              nama_audio: item.substring(0, 12),
+              teks_transcript: item
+                .substring(13, item.lastIndexOf('.') + 1)
+                .replace('"', ''),
+              notewav: item.substring(item.lastIndexOf('.') + 3),
+            };
+          });
         })
         .on('end', () => {
           console.log(results);

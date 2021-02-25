@@ -21,16 +21,21 @@ const DialogInput = ({
       open={open}
       onClose={handleCloseDialog}
       aria-labelledby="form-dialog-title"
+      maxWidth="sm"
     >
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-      <DialogContent>
+      <DialogContent
+        style={{
+          width: 500,
+        }}
+      >
         <DialogContentText>{nameWav}</DialogContentText>
         <TextField
           autoFocus
           multiline
           value={value}
           onChange={(e) => handleOnChange(e.target.value)}
-          rows={3}
+          rows={5}
           margin="dense"
           id="note"
           type="text"
