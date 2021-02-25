@@ -2,6 +2,8 @@ const path = require('path');
 const csv = require('csv-parser');
 const fs = require('fs');
 const Store = require('electron-store');
+const stringify = require('csv-stringify');
+
 const {
   app,
   BrowserWindow,
@@ -98,11 +100,46 @@ ipcMain.on('export-file', (_, { newData, path }) => {
     fileContainFormat.lastIndexOf('.')
   );
 
-  const ws = xlsx.utils.json_to_sheet(newData);
-  const wb = xlsx.utils.book_new();
-  xlsx.utils.book_append_sheet(wb, ws, 'Sheet 1');
+  stringify(
+    newData,
+    {
+      header: true,
+      delimiter: '|',
+    },
+    function (err, output) {
+      fs.writeFile(`${dir}/${file}-VALID.csv`, output, function (err, data) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log('Export Success...');
+      });
+    }
+  );
+});
 
-  xlsx.writeFile(wb, `${dir}/${file}-VALID.xlsx`);
+ipcMain.on('modify-file', (_, { newData, path }) => {
+  const dir = path.substring(0, path.lastIndexOf('/'));
+  const fileContainFormat = path.replace(/^.*[\\\/]/, '');
+  const file = fileContainFormat.substring(
+    0,
+    fileContainFormat.lastIndexOf('.')
+  );
+
+  stringify(
+    newData,
+    {
+      header: true,
+      delimiter: ',',
+    },
+    function (err, output) {
+      fs.writeFile(`${dir}/${file}.csv`, output, function (err, data) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log('Export Success...');
+      });
+    }
+  );
 });
 
 ipcMain.on('set-store', (_, { path, data }) => {

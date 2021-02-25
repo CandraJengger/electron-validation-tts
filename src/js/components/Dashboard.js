@@ -138,10 +138,10 @@ export default function Dashboard({ onToggleTheme }) {
   };
 
   const handleSaveExportToXlsx = () => {
-    electron.filesApi.exportToXlsx(newData, filePath);
+    electron.filesApi.exportToCsv(data, filePath);
 
     // delete store
-    electron.storeApi.deleteStore(filePath);
+    // electron.storeApi.deleteStore(filePath);
     setOpenDialogSave(false);
   };
 
@@ -278,7 +278,7 @@ export default function Dashboard({ onToggleTheme }) {
     if (indexInNewData !== -1) {
       data[indexInNewData] = newItem;
     }
-    // electron.storeApi.setStore(filePath, newData);
+    electron.filesApi.modifyFileCsv(data, filePath);
     setOpenDialogApply(false);
   };
 
@@ -370,6 +370,9 @@ export default function Dashboard({ onToggleTheme }) {
                     placeholder="Some text"
                     color="primary"
                     variant="filled"
+                    InputProps={{
+                      readOnly: true,
+                    }}
                     value={
                       data.length > 1 ? data[position].teks_transcript : ''
                     }
