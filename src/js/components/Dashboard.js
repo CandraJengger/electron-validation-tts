@@ -222,6 +222,11 @@ export default function Dashboard({ onToggleTheme }) {
       return setCurrentCount('1');
     }
 
+    if (currentCount === data.length.toString()) {
+      setPosition(data.length - 1);
+      return setCurrentCount(data.length.toString());
+    }
+
     if (waveform.current !== undefined) {
       waveform.current.pause();
     }
