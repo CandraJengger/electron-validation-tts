@@ -86,7 +86,16 @@ ipcMain.on('select-file', async (e) => {
       return fileNames;
     }
   });
-
+  let lastIndexDot = result.filePaths[0].lastIndexOf('.');
+  if (result.filePaths[0].substring(lastIndexDot + 1) !== 'csv') {
+    new Notification({
+      title: 'Notification',
+      body: 'File must be .csv',
+      urgency: 'critical',
+      timeoutType: 'default',
+    }).show();
+    return;
+  }
   readCsv(result.filePaths[0]).then((data) => {
     e.sender.send('select-file-reply', {
       path: result.filePaths[0],
