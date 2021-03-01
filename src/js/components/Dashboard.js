@@ -140,8 +140,6 @@ export default function Dashboard({ onToggleTheme }) {
   const handleSaveExportToXlsx = () => {
     electron.filesApi.exportToCsv(data, filePath);
 
-    // delete store
-    // electron.storeApi.deleteStore(filePath);
     setOpenDialogSave(false);
   };
 
@@ -165,13 +163,6 @@ export default function Dashboard({ onToggleTheme }) {
     setFilePath(fullPath);
     setData(dataPreload);
 
-    // reset state
-    // if ((await storeIsExist) !== undefined) {
-    // dari store
-    //   console.log(storeIsExist);
-    //   setNewData([...storeIsExist]);
-    // } else {
-    // }
     setDataContainsNotes([]);
     setPosition(0);
     setPlaying(false);
@@ -251,7 +242,6 @@ export default function Dashboard({ onToggleTheme }) {
     let count;
     if (key === 'Enter') {
       if (parseInt(value) > data.length) {
-        console.log('kakean slur');
         setPosition(0);
         return setCurrentCount('0');
       }
