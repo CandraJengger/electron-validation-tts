@@ -245,6 +245,10 @@ export default function Dashboard({ onToggleTheme }) {
         setPosition(0);
         return setCurrentCount('0');
       }
+      if (parseInt(value) < 0) {
+        setPosition(0);
+        return setCurrentCount('0');
+      }
       if (value !== '') {
         count = parseInt(value);
         setPosition(count - 1);
