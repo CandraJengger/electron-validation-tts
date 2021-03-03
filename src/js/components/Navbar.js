@@ -86,4 +86,4 @@ const Navbar = ({ open, handleDrawerOpen, handleSelectFile }) => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

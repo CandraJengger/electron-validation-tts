@@ -1,5 +1,5 @@
 // path
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import WaveSurfer from 'wavesurfer.js';
@@ -143,21 +143,20 @@ export default function Dashboard({ onToggleTheme }) {
     setOpenDialogSave(false);
   };
 
-  const handleDrawerOpen = () => {
+  // open drawer
+  const handleDrawerOpen = useCallback(() => {
     setOpen(true);
-  };
+  }, []);
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
-  const handleSelectFile = async () => {
+  const handleSelectFile = useCallback(async () => {
     const result = await electron.filesApi.selectFile();
 
     const fullPath = await result.path;
     const dataPreload = await result.data;
     const file = await fullPath.replace(/^.*[\\\/]/, '');
-
-    const storeIsExist = await electron.storeApi.getStore(fullPath);
 
     setFileName(file);
     setFilePath(fullPath);
@@ -167,7 +166,7 @@ export default function Dashboard({ onToggleTheme }) {
     setPosition(0);
     setPlaying(false);
     setNote('');
-  };
+  }, []);
 
   useEffect(() => {
     const listNote = data.filter(
