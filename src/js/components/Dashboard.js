@@ -240,31 +240,34 @@ export default function Dashboard({ onToggleTheme }) {
     }
   };
 
-  const handleChangePosition = (value, key = '') => {
-    let count;
-    if (key === 'Enter') {
-      if (parseInt(value) > data.length) {
-        setPosition(0);
-        return setCurrentCount('0');
-      }
-      if (parseInt(value) < 0) {
-        setPosition(0);
-        return setCurrentCount('0');
-      }
-      if (value !== '') {
-        count = parseInt(value);
-        setPosition(count - 1);
-      }
-      if (value === '0') {
-        setPosition(0);
-      }
+  const handleChangePosition = useCallback(
+    (value, key = '') => {
+      let count;
+      if (key === 'Enter') {
+        if (parseInt(value) > data.length) {
+          setPosition(0);
+          return setCurrentCount('0');
+        }
+        if (parseInt(value) < 0) {
+          setPosition(0);
+          return setCurrentCount('0');
+        }
+        if (value !== '') {
+          count = parseInt(value);
+          setPosition(count - 1);
+        }
+        if (value === '0') {
+          setPosition(0);
+        }
 
-      if (waveform.current !== undefined) {
-        waveform.current.pause();
+        if (waveform.current !== undefined) {
+          waveform.current.pause();
+        }
       }
-    }
-    setCurrentCount(value);
-  };
+      setCurrentCount(value);
+    },
+    [data]
+  );
 
   const findIndexInNewData = (data = [], item) => {
     const foundIt = data.findIndex(

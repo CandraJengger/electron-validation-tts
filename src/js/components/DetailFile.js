@@ -105,4 +105,4 @@ const DetailFile = ({
   );
 };
 
-export default DetailFile;
+export default React.memo(DetailFile);
