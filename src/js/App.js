@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 
 const App = () => {
   const keyStore = 'theme';
@@ -34,7 +38,7 @@ const App = () => {
     });
   }, []);
 
-  const toggleDarkTheme = () => {
+  const toggleDarkTheme = React.useCallback(() => {
     let newPaletteType = theme.palette.type === 'light' ? 'dark' : 'light';
     electron.storeApi.setStore(keyStore, newPaletteType);
     setTheme({
@@ -44,7 +48,7 @@ const App = () => {
         type: newPaletteType,
       },
     });
-  };
+  }, [theme]);
 
   const muiTheme = createMuiTheme(theme);
 

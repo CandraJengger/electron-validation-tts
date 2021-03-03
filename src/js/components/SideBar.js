@@ -5,10 +5,8 @@ import ListItems from './ListItems';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import IconButton from '@material-ui/core/IconButton';
+import SwitchTheme from './SwitchTheme';
 
 // Icon
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -53,10 +51,13 @@ const SideBar = ({ open, handleDrawerClose, count, note, toggleTheme }) => {
   const [isLight, setIsLight] = useState(true);
   const classes = useStyles();
 
-  const handleChangeToggle = (event) => {
-    setIsLight(event.target.checked);
-    toggleTheme();
-  };
+  const handleChangeToggle = React.useCallback(
+    (event) => {
+      setIsLight(event.target.checked);
+      toggleTheme();
+    },
+    [toggleTheme]
+  );
 
   useEffect(async () => {
     (await electron.storeApi.getStore(keyStore)) &&
@@ -81,18 +82,10 @@ const SideBar = ({ open, handleDrawerClose, count, note, toggleTheme }) => {
       <Divider />
       <List>
         <ListItems count={count} note={note} />
-        <FormGroup className={classes.switch}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isLight}
-                onChange={handleChangeToggle}
-                aria-label="theme switch"
-              />
-            }
-            label={isLight ? 'Light Mode' : 'Dark Mode'}
-          />
-        </FormGroup>
+        <SwitchTheme
+          isLight={isLight}
+          handleChangeToggle={handleChangeToggle}
+        />
       </List>
     </Drawer>
   );
