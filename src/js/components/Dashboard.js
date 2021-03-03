@@ -99,27 +99,29 @@ export default function Dashboard({ onToggleTheme }) {
   let waveform = useRef();
   const containerWaveRef = useRef();
 
-  const handleOpenDialogInput = () => {
+  // open dialog input
+  const handleOpenDialogInput = useCallback(() => {
     data.length > 1 &&
       data[position].hasOwnProperty('notewav') &&
       setNote(data[position].notewav);
     setOpenDialogInput(true);
-  };
+  }, [data, position]);
 
-  const handleCloseDialogInput = () => {
+  // close dialog input
+  const handleCloseDialogInput = useCallback(() => {
     setOpenDialogInput(false);
-  };
+  }, []);
 
-  const handleWriteNote = (value) => {
+  const handleWriteNote = useCallback((value) => {
     setNote(value);
-  };
+  }, []);
 
-  const handleSaveNote = () => {
+  const handleSaveNote = useCallback(() => {
     data[position].notewav = note;
     setData([...data]);
     setOpenDialogInput(false);
     setNote('');
-  };
+  }, [data, position, note]);
 
   const handleOpenDialogApply = () => {
     setOpenDialogApply(true);

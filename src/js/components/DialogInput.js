@@ -54,4 +54,4 @@ const DialogInput = ({
   );
 };
 
-export default DialogInput;
+export default React.memo(DialogInput);
