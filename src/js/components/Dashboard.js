@@ -123,21 +123,22 @@ export default function Dashboard({ onToggleTheme }) {
     setNote('');
   }, [data, position, note]);
 
-  const handleOpenDialogApply = () => {
+  // Dialog confirmation
+  const handleOpenDialogApply = useCallback(() => {
     setOpenDialogApply(true);
-  };
+  }, []);
 
-  const handleCloseDialogApply = () => {
+  const handleCloseDialogApply = useCallback(() => {
     setOpenDialogApply(false);
-  };
+  }, []);
 
-  const handleOpenDialogSave = () => {
+  const handleOpenDialogSave = useCallback(() => {
     setOpenDialogSave(true);
-  };
+  }, []);
 
-  const handleCloseDialogSave = () => {
+  const handleCloseDialogSave = useCallback(() => {
     setOpenDialogSave(false);
-  };
+  }, []);
 
   const handleSaveExportToXlsx = () => {
     electron.filesApi.exportToCsv(data, filePath);
@@ -461,7 +462,7 @@ export default function Dashboard({ onToggleTheme }) {
         open={openDialogSave}
         handleOnClose={handleCloseDialogSave}
         handleOnOk={handleSaveExportToXlsx}
-        text="Apakah anda proses validasi sudah selesai ?"
+        text="Apakah proses validasi sudah selesai ?"
       />
     </div>
   );

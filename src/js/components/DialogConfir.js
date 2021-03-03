@@ -31,4 +31,4 @@ const DialogConfir = ({
   );
 };
 
-export default DialogConfir;
+export default React.memo(DialogConfir);
