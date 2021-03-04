@@ -9,6 +9,7 @@ const {
   BrowserWindow,
   ipcMain,
   Notification,
+  Menu,
   dialog,
 } = require('electron');
 
@@ -22,7 +23,6 @@ function createWindow() {
     height: 700,
     minHeight: 700,
     backgroundColor: 'white',
-    frame: true,
     webPreferences: {
       nodeIntegration: false,
       worldSafeExecuteJavaScript: true,
@@ -166,4 +166,8 @@ ipcMain.on('delete-store', (e, key) => {
   store.delete(key);
 });
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+
+  Menu.setApplicationMenu(null);
+});
