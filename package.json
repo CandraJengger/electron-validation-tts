@@ -25,7 +25,7 @@
       "category": "Development;Office",
       "packageCategory": "Development;Office",
       "description": "Iyani for Linux",
-      "icon": "build/icons/favicon-32x32.png",
+      "icon": "build/icon.icns",
       "target": [
         "deb",
         "AppImage"
