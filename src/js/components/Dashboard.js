@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 // components
@@ -21,6 +20,7 @@ import Wave from './Wave';
 import DialogInput from './DialogInput';
 import DialogConfirApply from './DialogConfir';
 import DialogConfirSave from './DialogConfir';
+import Button from './Button';
 
 // icons
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -393,12 +393,10 @@ export default function Dashboard({ onToggleTheme }) {
                   className={classes.paddingTop}
                 >
                   <Button
-                    className={classes.fixedWidthButton}
                     variant="contained"
-                    onClick={handleOpenDialogInput}
-                  >
-                    Note
-                  </Button>
+                    handleClick={handleOpenDialogInput}
+                    text="Note"
+                  />
                 </Grid>
                 <Grid
                   item
@@ -409,12 +407,10 @@ export default function Dashboard({ onToggleTheme }) {
                   className={classes.paddingTop}
                 >
                   <Button
-                    className={classes.fixedWidthButton}
                     variant="contained"
-                    onClick={handleOpenDialogApply}
-                  >
-                    Apply
-                  </Button>
+                    handleClick={handleOpenDialogApply}
+                    text="Apply"
+                  />
                 </Grid>
 
                 <Grid
@@ -426,13 +422,11 @@ export default function Dashboard({ onToggleTheme }) {
                   className={classes.paddingTop}
                 >
                   <Button
-                    className={classes.fixedWidthButton}
                     variant="contained"
                     color="primary"
-                    onClick={handleOpenDialogSave}
-                  >
-                    Save
-                  </Button>
+                    handleClick={handleOpenDialogSave}
+                    text="Save"
+                  />
                 </Grid>
               </Grid>
             </Grid>
