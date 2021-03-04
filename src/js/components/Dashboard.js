@@ -184,7 +184,8 @@ export default function Dashboard({ onToggleTheme }) {
     setCurrentCount(count.toString());
 
     if (data.length > 0) {
-      const dir = filePath.substring(0, filePath.lastIndexOf('/'));
+      // linux
+      const dir = filePath.substring(0, filePath.lastIndexOf('/')); // untuk windows lastIndexOf('\\')
       const audioDir = fileName.substring(0, fileName.lastIndexOf('.'));
       const audioPath = `${dir}/${audioDir}/${data[position].nama_audio}.wav`;
       console.log(audioPath);

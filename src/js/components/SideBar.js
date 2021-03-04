@@ -60,10 +60,11 @@ const SideBar = ({ open, handleDrawerClose, count, note, toggleTheme }) => {
   );
 
   useEffect(async () => {
-    (await electron.storeApi.getStore(keyStore)) &&
-    (await electron.storeApi.getStore(keyStore)) === 'light'
-      ? setIsLight(true)
-      : setIsLight(false);
+    (await electron.storeApi.getStore(keyStore))
+      ? (await electron.storeApi.getStore(keyStore)) === 'light'
+        ? setIsLight(true)
+        : setIsLight(false)
+      : setIsLight(true);
   }, []);
 
   return (

@@ -106,7 +106,9 @@ ipcMain.on('select-file', async (e) => {
 });
 
 ipcMain.on('export-file', (_, { newData, path }) => {
-  const dir = path.substring(0, path.lastIndexOf('/'));
+  // linux
+  const dir = path.substring(0, path.lastIndexOf('/')); // untuk windows rubah path.lastIndexOf('\\')
+
   const fileContainFormat = path.replace(/^.*[\\\/]/, '');
   const file = fileContainFormat.substring(
     0,
@@ -131,7 +133,8 @@ ipcMain.on('export-file', (_, { newData, path }) => {
 });
 
 ipcMain.on('modify-file', (_, { newData, path }) => {
-  const dir = path.substring(0, path.lastIndexOf('/'));
+  // linux
+  const dir = path.substring(0, path.lastIndexOf('/')); // untuk windows rubah path.lastIndexOf('\\')
   const fileContainFormat = path.replace(/^.*[\\\/]/, '');
   const file = fileContainFormat.substring(
     0,
