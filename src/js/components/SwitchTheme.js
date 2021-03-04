@@ -2,16 +2,12 @@ import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  switch: {
-    paddingLeft: theme.spacing(3),
-  },
-}));
+// style
+import { useSwitchTheme } from '../styles';
 
 const SwitchTheme = ({ isLight, handleChangeToggle }) => {
-  const classes = useStyles();
+  const classes = useSwitchTheme();
   return (
     <FormGroup className={classes.switch}>
       <FormControlLabel

@@ -1,7 +1,6 @@
 // path
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import WaveSurfer from 'wavesurfer.js';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -28,59 +27,11 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import PauseIcon from '@material-ui/icons/Pause';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 200,
-  },
-  fixedWidthButton: {
-    width: 100,
-  },
-  paperModal: {
-    // Modal
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  paddingY: {
-    paddingTop: 20,
-    paddingBottom: 22,
-  },
-  paddingTop: {
-    paddingTop: 20,
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-}));
+// styles
+import { useDashboard } from '../styles';
 
 export default function Dashboard({ onToggleTheme }) {
-  const classes = useStyles();
+  const classes = useDashboard();
   const [open, setOpen] = useState(true);
   const [openDialogInput, setOpenDialogInput] = useState(false);
   const [openDialogApply, setOpenDialogApply] = useState(false);

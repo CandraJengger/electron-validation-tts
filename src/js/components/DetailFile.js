@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Gap from './Gap';
 import Typography from '@material-ui/core/Typography';
@@ -9,20 +8,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-  textField: {
-    width: '80%',
-  },
-  widthFull: {
-    width: '100%',
-  },
-  whiteSpaceWrap: {
-    whiteSpace: 'normal',
-  },
-}));
+import { useDetailFile } from '../styles';
 
 const DetailFile = ({
   path,
@@ -32,7 +18,7 @@ const DetailFile = ({
   currentCount,
   handleChangePosition,
 }) => {
-  const classes = useStyles();
+  const classes = useDetailFile();
   return (
     <Grid container direction="row" className={classes.widthFull}>
       <Grid item xs={6} md={12} lg={12} className={classes.widthFull}>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -9,19 +8,11 @@ import Collapse from '@material-ui/core/Collapse';
 import Badge from '@material-ui/core/Badge';
 import ListFixed from './ListFixed';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  nested: {
-    paddingLeft: theme.spacing(3),
-  },
-}));
+// style
+import { useListItems } from '../styles';
 
 const listItems = ({ count, note }) => {
-  const classes = useStyles();
+  const classes = useListItems();
   const [open, setOpen] = useState(true);
 
   const handleClick = () => {
