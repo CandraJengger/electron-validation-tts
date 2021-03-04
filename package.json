@@ -1,24 +1,102 @@
 {
-  "name": "electron-react-webpack",
+  "name": "iyani",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application used for tts validation",
   "main": "main.js",
+  "copyright": "©2021 Jgr",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --config webpack.common.js --watch",
-    "build": "webpack --config webpack.prod.js",
+    "build:wp": "webpack --config webpack.prod.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "start": "electron ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "build": {
+    "appId": "com.iyani.iyani-electron",
+    "files": [
+      "**/*",
+      "build/icon.*"
+    ],
+    "directories": {
+      "output": "package"
+    },
+    "linux": {
+      "category": "Development;Office",
+      "packageCategory": "Development;Office",
+      "description": "Iyani for Linux",
+      "icon": "build/icons/favicon-32x32.png",
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    },
+    "deb": {
+      "synopsis": "Iyani Desktop App"
+    },
+    "snap": {
+      "synopsis": "Iyani Desktop App"
+    },
+    "dmg": {
+      "background": "build/appdmg.png",
+      "icon": "build/icon.icns",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    },
+    "win": {
+      "target": [
+        {
+          "target": "NSIS",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "publisherName": "Jgr"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
+    }
+  },
+  "keywords": [
+    "Iyani",
+    "tts",
+    "Validation app",
+    "Desktop app",
+    "electron-app",
+    "electron"
+  ],
+  "author": {
+    "name": "Dimas Aldi Candra Saputra",
+    "email": "dimasacs89@gmail.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "babel-loader": "^8.2.2",
     "csv-parser": "^3.0.0",
     "csv-stringify": "^5.6.2",
-    "electron": "^11.2.3",
     "electron-store": "^7.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -30,6 +108,8 @@
     "@babel/preset-env": "^7.12.13",
     "@babel/preset-react": "^7.12.13",
     "css-loader": "^5.0.2",
+    "electron": "^12.0.0",
+    "electron-builder": "^22.10.5",
     "electron-reload": "^1.5.0",
     "sass": "^1.32.7",
     "sass-loader": "^11.0.1",

@@ -47,7 +47,7 @@ module.exports = {
   },
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, 'build', 'js'),
+    path: path.resolve(__dirname, 'dist', 'js'),
   },
   plugins: [
     // new BundleAnalyzerPlugin({
