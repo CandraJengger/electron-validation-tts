@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import ListItems from './ListItems';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,13 +11,45 @@ import SwitchTheme from './SwitchTheme';
 // Icon
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-// style
-import { useSidebar } from '../styles';
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  toolbarIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+  switch: {
+    paddingLeft: theme.spacing(3),
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(7),
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9),
+    },
+  },
+}));
 
 const SideBar = ({ open, handleDrawerClose, count, note, toggleTheme }) => {
   const keyStore = 'theme';
   const [isLight, setIsLight] = useState(true);
-  const classes = useSidebar();
+  const classes = useStyles();
 
   const handleChangeToggle = React.useCallback(
     (event) => {

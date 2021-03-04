@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import { FixedSizeList } from 'react-window';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 
-// style
-import { useListFixed } from '../styles';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    height: 400,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 function renderRow(props) {
   const { index, style, data } = props;
@@ -56,7 +62,7 @@ renderRow.propTypes = {
 };
 
 const ListFixed = ({ items }) => {
-  const classes = useListFixed();
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>

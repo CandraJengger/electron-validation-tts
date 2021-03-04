@@ -1,8 +1,15 @@
 import React from 'react';
-import { useWave } from '../styles';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  container: {
+    width: '100%',
+    height: 60,
+  },
+}));
 
 const Wave = React.forwardRef((props, ref) => {
-  const classes = useWave();
+  const classes = useStyles();
   return (
     <>
       <div ref={ref} className={classes.container}></div>
