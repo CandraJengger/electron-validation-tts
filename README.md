@@ -38,6 +38,7 @@ Packaging for distribution for Linux or Windows (according to the operating syst
 ```
 npm run dist
 ```
+The results of the distribution will be stored in the `packages` directory
 
 ## Note
 
